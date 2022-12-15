@@ -8,8 +8,11 @@ int in3 = 5;
 int in4 = 4;
 
 
+
+
 void setup() {
 	// Set all the motor control pins to outputs
+    Serial.begin(9600); // send and receive at 9600 baud
 	pinMode(left_motor, OUTPUT);
 	pinMode(right_motor, OUTPUT);
 	pinMode(in1, OUTPUT);
@@ -32,8 +35,8 @@ void loop() {
 }
 
 void to_reverse() {
-  analogWrite(left_motor, 255);
-	analogWrite(right_motor, 255);
+  analogWrite(left_motor, 200);
+  analogWrite(right_motor, 200);
 
 
   digitalWrite(in1, HIGH);
@@ -42,19 +45,17 @@ void to_reverse() {
 	digitalWrite(in4, HIGH);
 	delay(2000);
 }
-
+// loop for graduall speed increase
 void to_front() {
-
-    for(int i = 0; i < 255; i++) { 
-  analogWrite(left_motor, i);
-  analogWrite(right_motor, i);
-  delay(1000);
-    }
-
-  digitalWrite(in1, LOW);
+for(int i =125; i<=255; i++){
+     Serial.println(i);
+    analogWrite(left_motor, i);
+    analogWrite(right_motor, i);
+    digitalWrite(in1, LOW);
 	digitalWrite(in2, HIGH);
 	digitalWrite(in3, HIGH);
 	digitalWrite(in4, LOW);
-	delay(2000);
+	delay(200);
+}
 
 }
